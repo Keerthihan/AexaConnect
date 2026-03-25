@@ -1,3 +1,148 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+  color-scheme: dark;
+  --app-bg: #08111f;
+  --panel-bg: rgba(11, 22, 37, 0.76);
+  --panel-border: rgba(148, 163, 184, 0.16);
+  --panel-soft: rgba(15, 29, 48, 0.82);
+  --text-main: #f5efe6;
+  --text-muted: #93a4b7;
+  --accent-gold: #e0b36d;
+  --accent-cyan: #64d2d6;
+  --accent-coral: #f08b7d;
+  --success: #7dd3a7;
+}
+
+body {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at top left, rgba(100, 210, 214, 0.14), transparent 28%),
+    radial-gradient(circle at top right, rgba(224, 179, 109, 0.14), transparent 24%),
+    linear-gradient(180deg, #09121f 0%, #08111f 45%, #060d18 100%);
+  color: var(--text-main);
+}
+
+#root {
+  min-height: 100vh;
+}
+
+.chat-shell {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--panel-border);
+  background: linear-gradient(180deg, rgba(10, 22, 35, 0.92) 0%, rgba(7, 16, 28, 0.96) 100%);
+  box-shadow:
+    0 24px 60px rgba(0, 0, 0, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.chat-shell::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 0% 0%, rgba(100, 210, 214, 0.12), transparent 26%),
+    radial-gradient(circle at 100% 100%, rgba(240, 139, 125, 0.1), transparent 22%);
+  pointer-events: none;
+}
+
+.chat-grid {
+  position: relative;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+  background-size: 34px 34px;
+}
+
+.glass-panel {
+  background: var(--panel-bg);
+  border: 1px solid var(--panel-border);
+  backdrop-filter: blur(22px);
+}
+
+.chat-ambient {
+  position: relative;
+  overflow: hidden;
+  background:
+    linear-gradient(135deg, rgba(7, 15, 27, 0.96) 0%, rgba(9, 21, 37, 0.94) 38%, rgba(6, 12, 22, 0.98) 100%);
+}
+
+.chat-ambient::before,
+.chat-ambient::after {
+  content: "";
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(80px);
+  opacity: 0.55;
+  pointer-events: none;
+  animation: drift 18s ease-in-out infinite;
+}
+
+.chat-ambient::before {
+  top: -4%;
+  left: -6%;
+  width: 28rem;
+  height: 28rem;
+  background:
+    radial-gradient(circle at center, rgba(74, 222, 128, 0.16) 0%, rgba(74, 222, 128, 0.08) 35%, transparent 70%);
+}
+
+.chat-ambient::after {
+  right: -10%;
+  bottom: -6%;
+  width: 32rem;
+  height: 32rem;
+  background:
+    radial-gradient(circle at center, rgba(59, 130, 246, 0.18) 0%, rgba(59, 130, 246, 0.08) 36%, transparent 72%);
+  animation-delay: -8s;
+}
+
+.chat-ambient-inner {
+  position: relative;
+}
+
+.chat-ambient-inner::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+    radial-gradient(circle at 18% 24%, rgba(244, 114, 182, 0.09), transparent 18%),
+    radial-gradient(circle at 78% 30%, rgba(250, 204, 21, 0.08), transparent 16%);
+  background-size: 44px 44px, 44px 44px, auto, auto;
+  background-position: 0 0, 0 0, center, center;
+  mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.45));
+  animation: pulseGlow 12s ease-in-out infinite, gridShift 24s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes drift {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(30px, -24px, 0) scale(1.08);
+  }
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    opacity: 0.75;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes gridShift {
+  0% {
+    background-position: 0 0, 0 0, center, center;
+  }
+  100% {
+    background-position: 44px 44px, 44px 44px, center, center;
+  }
+}

@@ -1,6 +1,7 @@
 import User from "../models/user.model.js";
 import Message from "../models/message.model.js";
 import cloudinary from "../lib/cloudinary.js";
+import { getReceiverSocketId ,io} from "../lib/socket.js";
 
 export const getUsersforSlider = async (req, res) => {
   try {
@@ -57,6 +58,10 @@ export const sentMessage = async (req, res) => {
     });
 
     await newMessage.save();
+    const receiverSocketID = getReceiverSocketId(receiverId);
+    if (receiverSocketID) {
+      io.to(receiverSocketID).emit("new-message", newMessage);
+    }
 
     // TODO: realtime functionality goes here => socket.io
     return res.status(201).json(newMessage);
